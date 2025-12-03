@@ -212,16 +212,6 @@
             20%, 40%, 60%, 80% { transform: translateX(4px) rotate(1.5deg); }
         }
         
-        /* Контейнер для кнопок */
-        .buttons-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin: 15px 0;
-            width: 100%;
-        }
-        
         .btn {
             background: linear-gradient(to right, #4a00e0, #8e2de2);
             color: white;
@@ -233,9 +223,9 @@
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
             transition: all 0.2s ease;
-            width: 160px;
+            width: 180px;
             letter-spacing: 0.5px;
-            flex-shrink: 0;
+            margin: 15px 0;
         }
         
         .btn:active {
@@ -248,86 +238,6 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Кнопка вибрации - круглая иконка */
-        .vibration-btn {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background-color: #555;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            flex-shrink: 0;
-        }
-        
-        .vibration-btn.active {
-            background: linear-gradient(135deg, #8e2de2, #4a00e0);
-            box-shadow: 0 4px 15px rgba(142, 45, 226, 0.4);
-        }
-        
-        .vibration-btn:active {
-            transform: scale(0.95);
-        }
-        
-        /* Иконка вибрации */
-        .vibration-icon {
-            width: 24px;
-            height: 24px;
-            position: relative;
-        }
-        
-        .vibration-icon::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            background-color: white;
-            border-radius: 2px;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-        }
-        
-        .vibration-icon::after {
-            content: "";
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: white;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .vibration-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .vibration-line {
-            position: absolute;
-            width: 3px;
-            height: 12px;
-            background-color: white;
-            border-radius: 1.5px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .vibration-line.left {
-            left: 4px;
-        }
-        
-        .vibration-line.right {
-            right: 4px;
         }
         
         .instructions {
@@ -385,25 +295,11 @@
                 font-size: 19px;
             }
             
-            .buttons-container {
-                gap: 12px;
-                margin: 12px 0;
-            }
-            
             .btn {
                 padding: 15px 28px;
                 font-size: 16px;
-                width: 150px;
-            }
-            
-            .vibration-btn {
-                width: 52px;
-                height: 52px;
-            }
-            
-            .vibration-icon {
-                width: 22px;
-                height: 22px;
+                width: 170px;
+                margin: 12px 0;
             }
             
             .instructions {
@@ -440,22 +336,8 @@
             }
             
             .btn {
-                width: 140px;
+                width: 160px;
                 padding: 14px 24px;
-            }
-            
-            .vibration-btn {
-                width: 48px;
-                height: 48px;
-            }
-            
-            .vibration-icon {
-                width: 20px;
-                height: 20px;
-            }
-            
-            .buttons-container {
-                gap: 10px;
             }
         }
         
@@ -486,14 +368,9 @@
             }
             
             .btn {
-                width: 130px;
+                width: 150px;
                 padding: 12px 20px;
                 font-size: 15px;
-            }
-            
-            .vibration-btn {
-                width: 44px;
-                height: 44px;
             }
         }
         
@@ -509,7 +386,7 @@
                 margin-bottom: 40px;
             }
             
-            .buttons-container {
+            .btn {
                 margin: 20px 0;
             }
         }
@@ -535,9 +412,10 @@
                 margin: 0 auto 15px;
             }
             
-            .buttons-container {
+            .btn {
                 order: 3;
                 width: 100%;
+                max-width: 200px;
                 margin-top: 10px;
             }
         }
@@ -561,18 +439,7 @@
             </div>
         </div>
         
-        <!-- Контейнер для кнопок -->
-        <div class="buttons-container">
-            <button class="btn" id="askBtn">Ответ</button>
-            <button class="vibration-btn" id="vibrationBtn">
-                <div class="vibration-icon">
-                    <div class="vibration-lines">
-                        <div class="vibration-line left"></div>
-                        <div class="vibration-line right"></div>
-                    </div>
-                </div>
-            </button>
-        </div>
+        <button class="btn" id="askBtn">Ответ</button>
         
         <div class="instructions">
             Задайте вопрос в уме и нажмите кнопку, чтобы шар предсказаний дал ответ.
@@ -596,40 +463,18 @@
         const answerElement = document.getElementById('answer');
         const answerTextElement = document.getElementById('answerText');
         const askButton = document.getElementById('askBtn');
-        const vibrationBtn = document.getElementById('vibrationBtn');
         
         let isShaking = false;
         let vibrationSupported = false;
-        let vibrationEnabled = false;
         
-        // Проверяем поддержку вибрации
+        // Проверяем поддержку вибрации - если поддерживается, то вибрация активна
         if ('vibrate' in navigator) {
             vibrationSupported = true;
-        } else {
-            // Если вибрация не поддерживается, скрываем кнопку
-            vibrationBtn.style.display = 'none';
-            // Увеличиваем основную кнопку
-            document.querySelector('.btn').style.width = '180px';
         }
-        
-        // Включаем/выключаем вибрацию по клику на круглую кнопку
-        vibrationBtn.addEventListener('click', function() {
-            if (!vibrationSupported) return;
-            
-            vibrationEnabled = !vibrationEnabled;
-            
-            if (vibrationEnabled) {
-                this.classList.add('active');
-                // Короткая вибрация при включении
-                navigator.vibrate(30);
-            } else {
-                this.classList.remove('active');
-            }
-        });
         
         // Функция для вибрации при тряске шара
         function triggerVibration() {
-            if (vibrationSupported && vibrationEnabled) {
+            if (vibrationSupported) {
                 navigator.vibrate([40, 25, 40, 25, 40, 25, 40, 25, 40, 25]);
             }
         }
@@ -675,7 +520,7 @@
             // Скрываем предыдущий ответ
             answerElement.classList.remove('show');
             
-            // Запускаем вибрацию
+            // Запускаем вибрацию (если устройство поддерживает)
             triggerVibration();
             
             // Запускаем анимацию тряски
@@ -712,9 +557,9 @@
             }
         });
         
-        // Тактильный отклик при касании шара
+        // Тактильный отклик при касании шара (для устройств с поддержкой вибрации)
         ball.addEventListener('touchstart', function() {
-            if (vibrationSupported && vibrationEnabled && !isShaking) {
+            if (vibrationSupported && !isShaking) {
                 navigator.vibrate(8);
             }
         });
