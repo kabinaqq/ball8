@@ -20,17 +20,7 @@
             color: #f1f1f1;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
-            position: relative;
-        }
-        
-        .page-wrapper {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            padding: 20px 16px 80px;
-            max-width: 500px;
-            margin: 0 auto;
-            width: 100%;
+            padding: 20px 16px;
         }
         
         .container {
@@ -40,22 +30,23 @@
             text-align: center;
             gap: 20px;
             width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
         }
         
         h1 {
             font-size: 1.9rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             color: #e6e6e6;
             font-weight: 700;
             letter-spacing: 0.5px;
-            margin-top: 10px;
         }
         
         .magic-ball {
             position: relative;
             width: 280px;
             height: 280px;
-            margin: 10px auto 25px;
+            margin: 10px auto 30px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -221,6 +212,16 @@
             20%, 40%, 60%, 80% { transform: translateX(4px) rotate(1.5deg); }
         }
         
+        /* Контейнер для кнопок */
+        .buttons-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            width: 100%;
+        }
+        
         .btn {
             background: linear-gradient(to right, #4a00e0, #8e2de2);
             color: white;
@@ -234,7 +235,7 @@
             transition: all 0.2s ease;
             width: 160px;
             letter-spacing: 0.5px;
-            margin-top: 10px;
+            flex-shrink: 0;
         }
         
         .btn:active {
@@ -249,6 +250,86 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
         }
         
+        /* Кнопка вибрации - круглая иконка */
+        .vibration-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: #555;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .vibration-btn.active {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            box-shadow: 0 4px 15px rgba(142, 45, 226, 0.4);
+        }
+        
+        .vibration-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Иконка вибрации */
+        .vibration-icon {
+            width: 24px;
+            height: 24px;
+            position: relative;
+        }
+        
+        .vibration-icon::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background-color: white;
+            border-radius: 2px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+        
+        .vibration-icon::after {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .vibration-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .vibration-line {
+            position: absolute;
+            width: 3px;
+            height: 12px;
+            background-color: white;
+            border-radius: 1.5px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .vibration-line.left {
+            left: 4px;
+        }
+        
+        .vibration-line.right {
+            right: 4px;
+        }
+        
         .instructions {
             font-size: 14px;
             color: #aaa;
@@ -257,103 +338,24 @@
             border-radius: 10px;
             background-color: rgba(0, 0, 0, 0.2);
             max-width: 90%;
-            margin: 5px 0;
-        }
-        
-        /* Переключатель вибрации - фиксированный внизу экрана */
-        .vibration-toggle-container {
-            position: fixed;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            z-index: 1000;
-            padding: 0 16px;
-        }
-        
-        .vibration-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 12px 20px;
-            background-color: rgba(20, 20, 40, 0.9);
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            min-width: 180px;
-        }
-        
-        .toggle-label {
-            font-size: 15px;
-            color: #ddd;
-            font-weight: 500;
-        }
-        
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-        }
-        
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #555;
-            transition: .3s;
-            border-radius: 26px;
-        }
-        
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .3s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .toggle-slider {
-            background: linear-gradient(to right, #4a00e0, #8e2de2);
-        }
-        
-        input:checked + .toggle-slider:before {
-            transform: translateX(24px);
+            margin: 5px 0 20px;
         }
         
         /* Медиа-запросы для iPhone 16 Pro Max */
         @media (max-width: 430px) {
-            .page-wrapper {
-                padding: 15px 12px 85px;
+            body {
+                padding: 15px 12px;
             }
             
             h1 {
                 font-size: 1.7rem;
-                margin-bottom: 5px;
-                margin-top: 5px;
+                margin-bottom: 3px;
             }
             
             .magic-ball {
                 width: 260px;
                 height: 260px;
-                margin: 8px auto 20px;
+                margin: 8px auto 25px;
             }
             
             .window {
@@ -383,46 +385,31 @@
                 font-size: 19px;
             }
             
+            .buttons-container {
+                gap: 12px;
+                margin: 12px 0;
+            }
+            
             .btn {
                 padding: 15px 28px;
                 font-size: 16px;
-                width: 155px;
-                margin-top: 8px;
+                width: 150px;
+            }
+            
+            .vibration-btn {
+                width: 52px;
+                height: 52px;
+            }
+            
+            .vibration-icon {
+                width: 22px;
+                height: 22px;
             }
             
             .instructions {
                 font-size: 13px;
                 padding: 10px 12px;
-            }
-            
-            .vibration-toggle-container {
-                bottom: 15px;
-                padding: 0 12px;
-            }
-            
-            .vibration-toggle {
-                padding: 10px 18px;
-                min-width: 170px;
-            }
-            
-            .toggle-label {
-                font-size: 14px;
-            }
-            
-            .toggle-switch {
-                width: 46px;
-                height: 24px;
-            }
-            
-            .toggle-slider:before {
-                height: 18px;
-                width: 18px;
-                left: 3px;
-                bottom: 3px;
-            }
-            
-            input:checked + .toggle-slider:before {
-                transform: translateX(22px);
+                margin-bottom: 15px;
             }
         }
         
@@ -453,11 +440,22 @@
             }
             
             .btn {
-                width: 150px;
+                width: 140px;
+                padding: 14px 24px;
             }
             
-            .vibration-toggle {
-                min-width: 160px;
+            .vibration-btn {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .vibration-icon {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .buttons-container {
+                gap: 10px;
             }
         }
         
@@ -487,54 +485,47 @@
                 font-size: 17px;
             }
             
-            .vibration-toggle {
-                min-width: 150px;
-                padding: 8px 16px;
+            .btn {
+                width: 130px;
+                padding: 12px 20px;
+                font-size: 15px;
+            }
+            
+            .vibration-btn {
+                width: 44px;
+                height: 44px;
             }
         }
         
         /* Для высоких экранов */
         @media (min-height: 700px) and (max-height: 800px) {
-            .page-wrapper {
-                padding-bottom: 90px;
-            }
-            
             .magic-ball {
-                margin-bottom: 30px;
-            }
-            
-            .vibration-toggle-container {
-                bottom: 25px;
+                margin-bottom: 35px;
             }
         }
         
         @media (min-height: 800px) {
-            .page-wrapper {
-                justify-content: center;
-                padding-bottom: 100px;
-            }
-            
             .magic-ball {
-                margin-bottom: 35px;
+                margin-bottom: 40px;
             }
             
-            .vibration-toggle-container {
-                bottom: 30px;
+            .buttons-container {
+                margin: 20px 0;
             }
         }
         
         /* Горизонтальная ориентация */
         @media (orientation: landscape) and (max-height: 500px) {
-            .page-wrapper {
-                padding: 10px 12px 70px;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-around;
-                max-width: 100%;
+            body {
+                padding: 10px;
             }
             
             .container {
-                width: 50%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                align-items: center;
+                max-width: 100%;
                 gap: 15px;
             }
             
@@ -544,54 +535,47 @@
                 margin: 0 auto 15px;
             }
             
-            .vibration-toggle-container {
-                bottom: 10px;
-                left: auto;
-                right: 20px;
-                justify-content: flex-end;
-            }
-            
-            .vibration-toggle {
-                min-width: 160px;
+            .buttons-container {
+                order: 3;
+                width: 100%;
+                margin-top: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="page-wrapper">
-        <div class="container">
-            <h1>Шар Предсказаний</h1>
-            
-            <div class="magic-ball">
-                <div class="ball">
-                    <div class="ball-shine"></div>
-                    <div class="window">
-                        <div class="answer-container">
-                            <div class="answer" id="answer">
-                                <div class="answer-text" id="answerText"></div>
-                            </div>
+    <div class="container">
+        <h1>Шар Предсказаний</h1>
+        
+        <div class="magic-ball">
+            <div class="ball">
+                <div class="ball-shine"></div>
+                <div class="window">
+                    <div class="answer-container">
+                        <div class="answer" id="answer">
+                            <div class="answer-text" id="answerText"></div>
                         </div>
                     </div>
-                    <div class="eight-design"></div>
                 </div>
-            </div>
-            
-            <button class="btn" id="askBtn">Ответ</button>
-            
-            <div class="instructions">
-                Задайте вопрос в уме и нажмите кнопку, чтобы шар предсказаний дал ответ.
+                <div class="eight-design"></div>
             </div>
         </div>
-    </div>
-    
-    <!-- Переключатель вибрации - ФИКСИРОВАННЫЙ внизу экрана -->
-    <div class="vibration-toggle-container" id="vibrationToggleContainer">
-        <div class="vibration-toggle">
-            <span class="toggle-label">Вибрация</span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="vibrationToggle">
-                <span class="toggle-slider"></span>
-            </label>
+        
+        <!-- Контейнер для кнопок -->
+        <div class="buttons-container">
+            <button class="btn" id="askBtn">Ответ</button>
+            <button class="vibration-btn" id="vibrationBtn">
+                <div class="vibration-icon">
+                    <div class="vibration-lines">
+                        <div class="vibration-line left"></div>
+                        <div class="vibration-line right"></div>
+                    </div>
+                </div>
+            </button>
+        </div>
+        
+        <div class="instructions">
+            Задайте вопрос в уме и нажмите кнопку, чтобы шар предсказаний дал ответ.
         </div>
     </div>
 
@@ -612,8 +596,7 @@
         const answerElement = document.getElementById('answer');
         const answerTextElement = document.getElementById('answerText');
         const askButton = document.getElementById('askBtn');
-        const vibrationToggle = document.getElementById('vibrationToggle');
-        const vibrationToggleContainer = document.getElementById('vibrationToggleContainer');
+        const vibrationBtn = document.getElementById('vibrationBtn');
         
         let isShaking = false;
         let vibrationSupported = false;
@@ -623,15 +606,28 @@
         if ('vibrate' in navigator) {
             vibrationSupported = true;
         } else {
-            vibrationToggleContainer.style.display = 'none';
+            // Если вибрация не поддерживается, скрываем кнопку
+            vibrationBtn.style.display = 'none';
+            // Увеличиваем основную кнопку
+            document.querySelector('.btn').style.width = '180px';
         }
         
-        // Включаем/выключаем вибрацию
-        vibrationToggle.addEventListener('change', function() {
-            vibrationEnabled = this.checked;
+        // Включаем/выключаем вибрацию по клику на круглую кнопку
+        vibrationBtn.addEventListener('click', function() {
+            if (!vibrationSupported) return;
+            
+            vibrationEnabled = !vibrationEnabled;
+            
+            if (vibrationEnabled) {
+                this.classList.add('active');
+                // Короткая вибрация при включении
+                navigator.vibrate(30);
+            } else {
+                this.classList.remove('active');
+            }
         });
         
-        // Функция для вибрации
+        // Функция для вибрации при тряске шара
         function triggerVibration() {
             if (vibrationSupported && vibrationEnabled) {
                 navigator.vibrate([40, 25, 40, 25, 40, 25, 40, 25, 40, 25]);
@@ -706,40 +702,17 @@
                 const welcomeText = "Задай вопрос";
                 adaptText(welcomeText);
                 answerElement.classList.add('show');
-                
-                // Проверяем видимость кнопки вибрации
-                ensureVibrationToggleVisible();
             }, 300);
         });
-        
-        // Функция для проверки видимости кнопки вибрации
-        function ensureVibrationToggleVisible() {
-            const toggle = document.querySelector('.vibration-toggle-container');
-            const bodyHeight = document.body.clientHeight;
-            const windowHeight = window.innerHeight;
-            const toggleRect = toggle.getBoundingClientRect();
-            
-            // Если кнопка не видна, корректируем отступы
-            if (toggleRect.bottom > windowHeight) {
-                document.querySelector('.page-wrapper').style.paddingBottom = (toggleRect.height + 30) + 'px';
-            }
-            
-            console.log('Кнопка вибрации позиционирована:', {
-                position: 'fixed',
-                bottom: '20px',
-                visible: toggleRect.bottom <= windowHeight
-            });
-        }
         
         // Адаптация при изменении размера окна
         window.addEventListener('resize', function() {
             if (answerTextElement.textContent) {
                 adaptText(answerTextElement.textContent);
             }
-            ensureVibrationToggleVisible();
         });
         
-        // Тактильный отклик при касании
+        // Тактильный отклик при касании шара
         ball.addEventListener('touchstart', function() {
             if (vibrationSupported && vibrationEnabled && !isShaking) {
                 navigator.vibrate(8);
@@ -752,10 +725,6 @@
                 e.preventDefault();
             }
         }, { passive: false });
-        
-        // Принудительное обновление макета после загрузки
-        setTimeout(ensureVibrationToggleVisible, 500);
-        setTimeout(ensureVibrationToggleVisible, 1000);
     </script>
 </body>
 </html>
